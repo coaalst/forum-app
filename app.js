@@ -26,28 +26,36 @@ app.listen(4000, () => {
     console.log('Server started on port 4000');
 });
 
-//home test
+//home
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-//retrive list
+//feed
+app.get('/news', (req,res) => {
+    res.render('board')
+});
+
+//retrive user profiles
 app.get('/profiles', (req, res) => {
     
     res.json(JSON.stringify(profiles));
 });
 
+//retrive all posts
+app.get('/posts/', (req,res)=> {
+
+    res.json(JSON.stringify(posts));
+});
+
 //get profile by id
 app.get('/profiles/:id', (req, res) => {
-    const userPosts = posts.map((post)=>post.id==req.params.id);
+    const userPosts = posts.filter((post)=>post.id==req.params.id);
+    console.log(JSON.stringify(userPosts));
     res.render('profile', {profile: profiles[req.params.id], posts: userPosts, css: css});
 });
 
-app.get('/news', (req,res) => {
-    res.render('board')
-});
-
-//post
+//post a profile
 app.post('/profiles', (req, res) => {
     console.log(req.body);
     const profile = {
@@ -60,15 +68,18 @@ app.post('/profiles', (req, res) => {
     res.status(200).json(profile);
 });
 
-app.post("/posts/", (req,res)=> {
-    const {text, title, id} = req.body;
+//post a post
+app.post('/posts/', (req,res)=> {
+    const {tweet, title, id} = req.body;
     const post = {
         id,
-        text,
+        tweet,
         title
     }
     posts.push(post);
-})
+    res.status(200).json(post);
+});
+
 // {
 //	"name": "yeet611",
 // "password": "asd"

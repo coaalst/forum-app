@@ -5,7 +5,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta charset="utf-8">
 	
-	<title>Coaa.io | Welcome</title>
+	<title>My profile</title>
 	<!--za stylesheet-->
     <link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css"  media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
@@ -16,22 +16,23 @@
                 <%- css.style %>
             </style>
 	<header>
-        
-            <div>
-                <%= profile.id %>
-              
-            </div>
           <nav>
-                <ul>
-                    <li><a href="/">HOME</a></li>
-                    <li><a href="#"  class="first active">PROFILE</a></li>
-                    <li><a href="/news" class="last">NEWS</a></li>
-                </ul>
-            </nav>
-    	
-     </header>
-     <div class="content">
-     <div class="header2"></div>
+               <ul>
+                <li>
+                  <a> Dobrodosli na vas profil <%= profile.name %></a>
+                </li>
+               </ul>
+          </nav>
+  </header>
+
+  <% posts.forEach(function(post) { %>
+      <div class = "card">
+        <div class ="container">
+          <h4><b><%= post.title %></b></h4>  
+          <p><%= post.tweet %></p>
+        </div>
+      </div>
+<% }); %>
   
      
 </body>
