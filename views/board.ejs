@@ -12,14 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 <body>
-     <style>
-        <%- css.style %>
-    </style>
+     <style><%- css.style %></style>
     <header>
         <nav>
             <ul>
                 <li>
-                    <a> Dobrodosli na feed, ovde mozete videti sve postove.</a>
+                    <a> Dobrodosli na feed,<%= loggedIn.name %> ovde mozete videti sve postove.</a>
                 </li>
             </ul>
         </nav>

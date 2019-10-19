@@ -13,6 +13,9 @@ const profiles = [];
 //niz postova
 const posts = [];
 
+//ulogovan korisnik
+const loggedIn = null;
+
 //app setup
 const app = express();
 app.use(express.json());
@@ -33,7 +36,7 @@ app.get('/', (req, res) => {
 
 //feed
 app.get('/news', (req,res) => {
-    res.render('board',{posts: posts, css: css});
+    res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
 });
 
 //retrive user profiles
@@ -67,9 +70,7 @@ app.post('/profiles', (req, res) => {
     profiles.push(profile);
     res.status(200).json(profile);
 
-    const userPosts = posts.filter((post)=>post.id==req.params.id);
-    console.log(JSON.stringify(userPosts));
-    res.render('profile', {profile: profiles[req.params.id], posts: userPosts, css: css});
+    loggedIn = profile;
 
 });
 

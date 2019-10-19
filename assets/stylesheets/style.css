@@ -19,7 +19,7 @@ a, a:active, a:hover, a:visited {
 
 /* Header/Navgiation */
 header {
-    position: fixed;
+    position: relative;
     background:#293d3d;
     height: 80px;
     width: 100%;
