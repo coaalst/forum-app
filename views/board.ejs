@@ -5,56 +5,33 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta charset="utf-8">
 	
-	<title>Coaa.io | Welcome</title>
+	<title>RAF-forum | Welcome</title>
 	<!--za stylesheet-->
     <link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css"  media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 <body>
-	<header>
-        
-            
-          <nav>
-                <ul>
-                    <li><a href="home.html">HOME</a></li><!--Ovde umesto # IDE PATH ZA INDEX2.HTML-->
-                    <li><a href="profile.html">PROFILE</a></li>
-                    <li><a href="#" class="first active">NEWS</a></li>
-                </ul>
-            </nav>
-    	
-     </header>
-     <div class="content">
-     <div class="header2"></div>
-      <div class="card-photo">
-                <div class="card-photo-image">
-                    <img src="deer.jpg">
-                    <div class="actions">
-                    </div>
-                </div>
+     <style>
+        <%- css.style %>
+    </style>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a> Dobrodosli na feed, ovde mozete videti sve postove.</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <% posts.forEach(function(post) { %>
+        <div class = "card">
+            <div class ="container">
+                <h4><b><%= post.title %></b></h4>  
+                <p><%= post.tweet %></p>
             </div>
-            <div class="card-photo">
-                <div class="card-photo-image">
-                    <img src="deer.jpg">
-                    <div class="actions">
-                    </div>
-                </div>
-            </div>
-            <div class="card-photo">
-                <div class="card-photo-image">
-                    <img src="deer.jpg">
-                    <div class="actions">
-                    </div>
-                </div>
-            </div>
-            <div class="card-photo">
-                <div class="card-photo-image">
-                    <img src="deer.jpg">
-                    <div class="actions">
-                    </div>
-                </div>
-            </div>
-     <p>Web design encompasses many different skills and disciplines in the production and maintenance of websites. The different areas of web design include web graphic design; interface design; authoring, including standardised code and proprietary software; user experience design; and search engine optimization. Often many individuals will work in teams covering different aspects of the design process, although some designers will cover them all.[1] The term web design is normally used to describe the design process relating to the front-end (client side) design of a website including writing mark up. Web design partially overlaps web engineering in the broader scope of web development. Web designers are expected to have an awareness of usability and if their role involves creating mark up then they are also expected to be up to date with web accessibility guidelines.</p>
-     
+        </div>
+    <% }); %>
 </body>
 </html>

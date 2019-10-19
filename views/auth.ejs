@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta charset="utf-8">
+
+<title>RAF-forum | Login</title>
+<!--za stylesheet-->
+<link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css"  media="screen,projection"/>
+</head>
+<body>
+		<style>
+				<%- css.style %>
+			</style>
+	<h1>RAF Forum 🚀 </h1>
+	<!-- main -->
+	<div class="main">
+		<!--signin-form-->
+		<div class="w3">
+			<div class="signin-form profile">
+				<h3>Login</h3>
+				
+				<div class="login-form">
+					<form type="hidden" target="_blank" action="../profiles/" method="post">
+						<input type="text" name="logemail" placeholder="E-mail" required="">
+						<input type="password" name="logpassword" placeholder="Password" required="">
+						<div class="tp">
+							<input type="submit" value="LOGIN NOW" onclick="window.location.href = 'http://localhost:4000/news'">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!--//signin-form-->	
+    </div>
+</body>
+</html>
