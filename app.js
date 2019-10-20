@@ -30,27 +30,50 @@ app.listen(4000, () => {
     console.log('Server started on port 4000');
 });
 
-//home
+//auth
 app.get('/', (req, res) => {
     res.render("auth",{css: css, profiles: profiles});
+});
+
+//new post
+app.get('/home', (req, res) => {
+    if(loggedIn != null) res.render("home",{css: css, loggedIn: loggedIn});
+    else res.send("401 - nisi se ulogovao");
 });
 
 //feed
 app.get('/news', (req,res) => {
     if(loggedIn != null) res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
-    res.send("401 - nisi se ulogovao");
+    else res.send("401 - nisi se ulogovao");
 });
 
-//retrive all user profiles
-app.get('/profiles', (req, res) => {
-    if(loggedIn != null) res.json(JSON.stringify(profiles));
-    res.send("401 - nisi se ulogovao");
+//filter feed posts
+app.get('/posts/:title/:tweet', (req,res)=> {
+    if(loggedIn != null) {
+        const userPosts = posts.filter(function(post){
+            return post.title == req.body.title || post.tweet == req.body.tweet;
+        });
+         res.render('board', {loggedIn: loggedIn, posts: userPosts, css: css});
+    }
+    else res.send("401 - nisi se ulogovao");
 });
 
-//retrive all posts
-app.get('/posts/', (req,res)=> {
-    if(loggedIn != null) res.json(JSON.stringify(posts));
-    res.send("401 - nisi se ulogovao");
+//filter user posts
+app.post('/posts/:title/:tweet', (req,res)=> {
+    if(loggedIn != null) {
+        console.log(req.params)
+        const {title, tweet} = req.body;
+        const post = {
+            id: profiles.length,
+            title,
+            tweet
+        }
+        const userPosts = posts.filter(function(el){
+            return el.title == req.body.title || el.tweet ==req.body.tweet
+        })
+         res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
+    }
+    else res.send("401 - nisi se ulogovao");
 });
 
 //get profile by id
@@ -80,7 +103,6 @@ app.post('/profiles', (req, res) => {
 
 //post a post
 app.post('/posts/', (req,res)=> {
-
     if(loggedIn != null){
         const {tweet, title, id} = req.body;
         const post = {
@@ -88,13 +110,10 @@ app.post('/posts/', (req,res)=> {
             tweet,
             title
         }
+        console.log(JSON.stringify(post));
         posts.push(post);
+        res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
         res.status(200).json(post);
     }
     else res.send("401 - nisi se ulogovao");
 });
-
-// {
-//	"name": "yeet611",
-// "password": "asd"
-//}

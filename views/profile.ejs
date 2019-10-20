@@ -16,27 +16,29 @@
           <nav>
                <ul>
                 <li><a class="first active">Dobrodosli na vas profil <%= profile.name %></a></li>
-                <li><a href="http://localhost:4000/news">News</a></li>
-                <li><a>Post</a></li>
+                <li><a href="http://localhost:4000/news">NEWS</a></li>
+                <li><a href="http://localhost:4000/home/">POST</a></li>
                </ul>
           </nav>
   </header>
   <h2>Vasi postovi</h2>
 
-  <!--Filter setup-->
+  <!--filter setup-->
   <div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Filter posts</button>
-    <div id="myDropdown" class="dropdown-content">
-      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-      <% posts.forEach(function(post) { %>
-        <a href=""><%= post.title %></a>
-  <% }); %>
-    </div>
-  </div> 
+      <button onclick="myFunction()" class="dropbtn">Filter posts</button>
+      <div id="myDropdown" class="dropdown-content">
+        Filtritaj po sledecim parametrima: <br><br>
+        <div class="newpost">
+          <form action="../posts/title/tweet" method="GET" target="_blank">
+            <input type="button">
+  
+        </div>
+      </div>
+    </div> 
 
   <!--regular posts-->
   <% posts.forEach(function(post) { %>
-      <div class = "card">
+      <div class = "card" id="<%">
         <div class ="container">
           <h4><b><%= post.title %></b></h4>  
           <p><%= post.tweet %></p>
@@ -47,23 +49,7 @@
 <script>
   function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
-}
 
-
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
-  }
 }
 </script>
 

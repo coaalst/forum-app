@@ -18,20 +18,54 @@
         <nav>
             <ul>
              <li><a class="first active">RAF Forum | Feed - Logged in as: <%= loggedIn.name %></a></li>
-             <li><a href="http://localhost:4000/profiles/<%= loggedIn.id %>">Profile</a></li>
-             <li><a>Post</a></li>
-             <li><a href="">Filter</a></li>
+             <li><a href="http://localhost:4000/profiles/<%= loggedIn.id %>">PROFILE</a></li>
+             <li><a href="http://localhost:4000/home/">POST</a></li>
             </ul>
        </nav>
     </header>
+    <div class="container">
+        <h2>Glavni feed</h2><br>
+        Filter za postove
+        <input type="text" id="filter" placeholder="Pretraga">
 
-    <% posts.forEach(function(post) { %>
-        <div class = "card">
-            <div class ="container">
-                <h4><b><%= post.title %></b></h4>  
-                <p><%= post.tweet %></p>
-            </div>
-        </div>
-    <% }); %>
+        <ul id="postlist">
+            <% posts.forEach(function(post) { %>
+                <li class="postcard">
+                    <div class = "card">
+                        <div class ="container">
+                            <h4><b><%= post.title %></b></h4>  
+                            <p><%= post.tweet %></p>
+                        </div>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+<script>
+
+    <!--setup za filter listener-->
+    let filterInput = document.getElementById("filter");
+    filterInput.addEventListener('keyup', filterPosts());
+    
+    function filterPosts(){
+        let filterValue = document.getElementById("filter").value.toUpperCase();
+        let ul = document.getElementById('names');
+
+        let postcards = ul.querySelectorAll('postcard');
+        for(int i = 0; i < postcards.length; i++){
+            let card = postcards[i].getElementsByClassName('card');
+            let container = card.getElementsByClassName('container');
+            let title = container.getElementsByTagName("h4");
+            let tweet = container.getElementsByTagName("p");
+            
+            if(title.innerHTML.toUpperCase().indexOf(filterValue) > -1){
+                postcards[i].style.display = '';
+            }
+            else postcards[i].style.display = 'none';
+        }
+
+    }
+    
+</script>
 </body>
 </html>

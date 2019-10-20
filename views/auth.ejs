@@ -6,7 +6,7 @@
 
 <title>RAF-forum | Login</title>
 <!--za stylesheet-->
-<link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css"  media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css" />
 </head>
 <body>
 		<style><%- css.style %></style>
@@ -19,11 +19,11 @@
 				<h3>Login</h3>
 				
 				<div class="login-form">
-					<form name="login" target="_blank" action="../profiles/" method="post" onsubmit="return validateForm()">
+					<form name="login" target="_blank" action="../profiles/" method="post" onsubmit="windowClose()">
 						<input type="text" name="name" placeholder="E-mail" required="">
 						<input type="password" name="password" placeholder="Password" required="">
 						<div class="tp">
-							<input type="submit" value="LOGIN NOW" onkeyup= "windowClose()">
+							<input type="submit" value="LOGIN NOW">
 						</div>
 					</form>
 				</div>
@@ -33,26 +33,11 @@
 		<!--//signin-form-->	
 	</div>
 	<script>
-		function validateForm() {
-		  var x = document.forms["login"]["name"].value;
-		  var y = document.forms["login"]["password"].value;
-		  if (x == "") {
-			alert("Name must be filled out");
-			return false;
-		  }
-		  else if (y == "") {
-			alert("Password must be filled out");
-			return false;
-		  }
-		  else if (y == "" && x == ""){
-			alert("Name and password must be filled out");
-			return false;
-		  }
-		}
 
 		function windowClose(){
-			close();
+			console.log("city");
+			this.windows.close();
 		}
-		</script>
+	</script>
 </body>
 </html>
