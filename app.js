@@ -14,12 +14,13 @@ const profiles = [];
 const posts = [];
 
 //ulogovan korisnik
-const loggedIn = null;
+var loggedIn = null;
 
 //app setup
 const app = express();
 app.use(express.json());
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/assets'));
 
@@ -31,59 +32,66 @@ app.listen(4000, () => {
 
 //home
 app.get('/', (req, res) => {
-    res.render("auth",{css: css});
+    res.render("auth",{css: css, profiles: profiles});
 });
 
 //feed
 app.get('/news', (req,res) => {
-    res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
+    if(loggedIn != null) res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
+    res.send("401 - nisi se ulogovao");
 });
 
-//retrive user profiles
+//retrive all user profiles
 app.get('/profiles', (req, res) => {
-    
-    res.json(JSON.stringify(profiles));
+    if(loggedIn != null) res.json(JSON.stringify(profiles));
+    res.send("401 - nisi se ulogovao");
 });
 
 //retrive all posts
 app.get('/posts/', (req,res)=> {
-
-    res.json(JSON.stringify(posts));
+    if(loggedIn != null) res.json(JSON.stringify(posts));
+    res.send("401 - nisi se ulogovao");
 });
 
 //get profile by id
 app.get('/profiles/:id', (req, res) => {
-    const userPosts = posts.filter((post)=>post.id==req.params.id);
-    console.log(JSON.stringify(userPosts));
-    res.render('profile', {profile: profiles[req.params.id], posts: userPosts, css: css});
+    if(loggedIn != null){
+        const userPosts = posts.filter((post)=>post.id==req.params.id);
+        console.log(JSON.stringify(userPosts));
+        res.render('profile', {profile: profiles[req.params.id], posts: userPosts, css: css});
+    }
+    else res.send("401 - nisi se ulogovao");
 });
 
 //post a profile
 app.post('/profiles', (req, res) => {
-    console.log(req.body);
+    const {name, password} = req.body;
     const profile = {
         id: profiles.length,
-        name: req.body.name,
-        password: req.body.password
-    };
+        name,
+        password
+    }
     console.log(profile);
-    profiles.push(profile);
-    res.status(200).json(profile);
-
     loggedIn = profile;
-
+    profiles.push(profile);
+    res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
+    res.status(200).json(profile);
 });
 
 //post a post
 app.post('/posts/', (req,res)=> {
-    const {tweet, title, id} = req.body;
-    const post = {
-        id,
-        tweet,
-        title
+
+    if(loggedIn != null){
+        const {tweet, title, id} = req.body;
+        const post = {
+            id,
+            tweet,
+            title
+        }
+        posts.push(post);
+        res.status(200).json(post);
     }
-    posts.push(post);
-    res.status(200).json(post);
+    else res.send("401 - nisi se ulogovao");
 });
 
 // {

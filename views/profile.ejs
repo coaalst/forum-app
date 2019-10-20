@@ -4,7 +4,6 @@
                                                         
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
 	<meta charset="utf-8">
-	
 	<title>RAF-forum | My profile</title>
 	<!--za stylesheet-->
     <link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css"  media="screen,projection"/>
@@ -16,13 +15,26 @@
 	<header>
           <nav>
                <ul>
-                <li><a> Dobrodosli na vas profil <%= profile.name %></a></li>
+                <li><a class="first active">Dobrodosli na vas profil <%= profile.name %></a></li>
+                <li><a href="http://localhost:4000/news">News</a></li>
                 <li><a>Post</a></li>
-
                </ul>
           </nav>
   </header>
-  <h1>Vasi postovi</h1>
+  <h2>Vasi postovi</h2>
+
+  <!--Filter setup-->
+  <div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Filter posts</button>
+    <div id="myDropdown" class="dropdown-content">
+      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+      <% posts.forEach(function(post) { %>
+        <a href=""><%= post.title %></a>
+  <% }); %>
+    </div>
+  </div> 
+
+  <!--regular posts-->
   <% posts.forEach(function(post) { %>
       <div class = "card">
         <div class ="container">
@@ -31,7 +43,30 @@
         </div>
       </div>
 <% }); %>
-  
+
+<script>
+  function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+</script>
+
      
 </body>
 </html>

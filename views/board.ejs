@@ -14,13 +14,15 @@
 <body>
      <style><%- css.style %></style>
     <header>
+       
         <nav>
             <ul>
-                <li>
-                    <a> Dobrodosli na feed,<%= loggedIn.name %> ovde mozete videti sve postove.</a>
-                </li>
+             <li><a class="first active">RAF Forum | Feed - Logged in as: <%= loggedIn.name %></a></li>
+             <li><a href="http://localhost:4000/profiles/<%= loggedIn.id %>">Profile</a></li>
+             <li><a>Post</a></li>
+             <li><a href="">Filter</a></li>
             </ul>
-        </nav>
+       </nav>
     </header>
 
     <% posts.forEach(function(post) { %>
