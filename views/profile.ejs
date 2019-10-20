@@ -30,15 +30,20 @@
         Filtritaj po sledecim parametrima: <br><br>
         <div class="newpost">
           <form action="../posts/title/tweet" method="GET" target="_blank">
-            <input type="button">
-  
+            Naslov:
+            <input type="text" name="title"><br>
+            Sadrzaj:
+            <input type="text" name="tweet"><br><br>
+            <input type="submit" value="Apply">
+            <input type="reset" value="Reset">
+          </form>
         </div>
       </div>
     </div> 
 
   <!--regular posts-->
   <% posts.forEach(function(post) { %>
-      <div class = "card" id="<%">
+      <div class = "card">
         <div class ="container">
           <h4><b><%= post.title %></b></h4>  
           <p><%= post.tweet %></p>
@@ -49,7 +54,6 @@
 <script>
   function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
-
 }
 </script>
 
