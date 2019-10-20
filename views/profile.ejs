@@ -18,6 +18,7 @@
                 <li><a class="first active">Dobrodosli na vas profil <%= profile.name %></a></li>
                 <li><a href="http://localhost:4000/news">NEWS</a></li>
                 <li><a href="http://localhost:4000/home/">POST</a></li>
+                <li><a href="http://localhost:4000/logout/">LOG OFF</a></li>
                </ul>
           </nav>
   </header>
@@ -29,7 +30,7 @@
       <div id="myDropdown" class="dropdown-content">
         Filtritaj po sledecim parametrima: <br><br>
         <div class="newpost">
-          <form action="../posts/title/tweet" method="GET" target="_blank">
+          <form action="../postsfilter/" method="POST">
             Naslov:
             <input type="text" name="title"><br>
             Sadrzaj:
@@ -47,6 +48,11 @@
         <div class ="container">
           <h4><b><%= post.title %></b></h4>  
           <p><%= post.tweet %></p>
+          <div class="login-form">
+            <form action="/delete_post" method="DELETE"></form>
+            <input type="hidden" name="id" value=" <%= post.postId %>">
+            <input type="submit" class="dropbtn" value="Obrisi">
+          </div>
         </div>
       </div>
 <% }); %>

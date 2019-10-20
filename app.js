@@ -35,9 +35,25 @@ app.get('/', (req, res) => {
     res.render("auth",{css: css, profiles: profiles});
 });
 
+//Logout
+app.get('/logout', (req, res) => {
+    loggedIn = null;
+    res.render("auth",{css: css});
+});
+
+
 //new post
 app.get('/home', (req, res) => {
     if(loggedIn != null) res.render("home",{css: css, loggedIn: loggedIn});
+    else res.send("401 - nisi se ulogovao");
+});
+
+//delete post
+app.delete('/pos', (req, res) => {
+    if(loggedIn != null) {
+        posts.splice(posts.find(post.postId));
+        res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
+    }
     else res.send("401 - nisi se ulogovao");
 });
 
@@ -59,7 +75,7 @@ app.get('/posts/:title/:tweet', (req,res)=> {
 });
 
 //filter user posts
-app.post('/posts/:title/:tweet', (req,res)=> {
+app.post('/postsfilter/', (req,res)=> {
     if(loggedIn != null) {
         console.log(req.params)
         const {title, tweet} = req.body;
@@ -68,10 +84,13 @@ app.post('/posts/:title/:tweet', (req,res)=> {
             title,
             tweet
         }
-        const userPosts = posts.filter(function(el){
-            return el.title == req.body.title || el.tweet ==req.body.tweet
-        })
-         res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
+        if(req.body.title  != "" || req.body.tweet != ""){
+            const userPosts = posts.filter(function(el){
+                return el.title == req.body.title || el.tweet ==req.body.tweet
+            })
+            res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
+        }
+        else res.render('profile', {profile: loggedIn, posts: posts, css: css});
     }
     else res.send("401 - nisi se ulogovao");
 });
@@ -107,6 +126,7 @@ app.post('/posts/', (req,res)=> {
         const {tweet, title, id} = req.body;
         const post = {
             id,
+            postId : posts.length,
             tweet,
             title
         }
