@@ -1,7 +1,4 @@
 const express = require("express");
-const path = require('path');
-const Joi = require('joi');
-const bodyParser = require('body-parser');
 const fs = require('fs');
 const css = {
     style : fs.readFileSync(__dirname + '/assets/stylesheets/style.css')
@@ -26,7 +23,7 @@ app.use(express.static(__dirname + '/assets'));
 
 //port setup
 const port = process.env.PORT || 4000;
-app.listen(4000, () => {
+app.listen(port, () => {
     console.log('Server started on port 4000');
 });
 
@@ -64,12 +61,22 @@ app.get('/news', (req,res) => {
 });
 
 //filter feed posts
-app.get('/posts/:title/:tweet', (req,res)=> {
+app.post('/boardpostsfilter/', (req,res)=> {
     if(loggedIn != null) {
-        const userPosts = posts.filter(function(post){
-            return post.title == req.body.title || post.tweet == req.body.tweet;
-        });
-         res.render('board', {loggedIn: loggedIn, posts: userPosts, css: css});
+        console.log(req.params)
+        const {title, tweet} = req.body;
+        const post = {
+            id: profiles.length,
+            title,
+            tweet
+        }
+        if(req.body.title  != "" || req.body.tweet != ""){
+            const userPosts = posts.filter(function(el){
+                return el.title == req.body.title || el.tweet ==req.body.tweet
+            });
+            res.render('board', {loggedIn: loggedIn, posts: userPosts, css: css});
+        }
+        else res.render('board', {loggedIn: loggedIn, posts: posts, css: css});
     }
     else res.send("401 - nisi se ulogovao");
 });
@@ -87,7 +94,7 @@ app.post('/postsfilter/', (req,res)=> {
         if(req.body.title  != "" || req.body.tweet != ""){
             const userPosts = posts.filter(function(el){
                 return el.title == req.body.title || el.tweet ==req.body.tweet
-            })
+            });
             res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
         }
         else res.render('profile', {profile: loggedIn, posts: posts, css: css});
@@ -117,7 +124,6 @@ app.post('/profiles', (req, res) => {
     loggedIn = profile;
     profiles.push(profile);
     res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
-    res.status(200).json(profile);
 });
 
 //post a post
@@ -132,8 +138,7 @@ app.post('/posts/', (req,res)=> {
         }
         console.log(JSON.stringify(post));
         posts.push(post);
-        res.render('board',{loggedIn: loggedIn, posts: posts, css: css});
-        res.status(200).json(post);
+        res.render('profile',{profile: loggedIn, posts: posts, css: css});
     }
     else res.send("401 - nisi se ulogovao");
 });
