@@ -46,9 +46,13 @@ app.get('/home', (req, res) => {
 });
 
 //delete post
-app.delete('/pos', (req, res) => {
+app.post('/delete_post', (req, res) => {
     if(loggedIn != null) {
-        posts.splice(posts.find(post.postId));
+        const postId = req.body.postId;
+        var userPosts = posts.filter((post)=>post.id==loggedIn.id);
+        userPosts = userPosts.filter(function( post ) {
+            return post.postId != postId;
+        });
         res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
     }
     else res.send("401 - nisi se ulogovao");
@@ -93,7 +97,7 @@ app.post('/postsfilter/', (req,res)=> {
         }
         if(req.body.title  != "" || req.body.tweet != ""){
             const userPosts = posts.filter(function(el){
-                return el.title == req.body.title || el.tweet ==req.body.tweet
+                return el.title == req.body.title || el.tweet == req.body.tweet
             });
             res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
         }
