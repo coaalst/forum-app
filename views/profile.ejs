@@ -50,7 +50,7 @@
           <p><%= post.tweet %></p>
           <div class="login-form">
             <form action="/delete_post" method="POST">
-            <input type="hidden" name="id" value="<%= post.postId %>">
+            <input type="hidden" name="postId" value="<%= post.postId %>">
             <input type="submit" class="dropbtn" value="Obrisi">
           </form>
           </div>
