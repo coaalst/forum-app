@@ -1,5 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const post = require("../db/poster.js");
+
+//pool
+var pool = mysql.createPool(conf.mysql);
+
+var rend = function(res, page, data) {
+    if (!data) res.render(page);
+    else res.render(page, data);
+}
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -7,81 +16,39 @@ router.use(function timeLog (req, res, next) {
   next();
 });
 
+//feed
+router.get('/', (req,res) => {
+    if(loggedIn != null) post.show(req, res);
+    else res.send("401 - nisi se ulogovao");
+});
+
 //post a post
 router.post('/', (req,res)=> {
-    if(loggedIn != null){
-        const {tweet, title, id} = req.body;
-        const post = {
-            id,
-            postId : posts.length,
-            tweet,
-            title
-        };
-        console.log(JSON.stringify(post));
-        posts.push(post);
-        res.render('profile',{profile: loggedIn, posts: posts, css: css});
-    }
+    if(loggedIn != null) post.add(req, res);
     else res.send("401 - nisi se ulogovao");
 });
 
 //new post
-router.get('/home', (req, res) => {
-    if(loggedIn != null) res.render("home",{css: css, loggedIn: loggedIn});
+router.get('/new_post', (req, res) => {
+    if(loggedIn != null) post.show(req, res);
     else res.send("401 - nisi se ulogovao");
 });
 
 //delete post
 router.post('/delete_post', (req, res) => {
-    if(loggedIn != null) {
-        const postId = req.body.postId;
-        var userPosts = posts.filter((post)=>post.id==loggedIn.id);
-        userPosts = userPosts.filter(function( post ) {
-            return post.postId != postId;
-        });
-        res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
-    }
+    if(loggedIn != null) post.delete(req, res);
     else res.send("401 - nisi se ulogovao");
 });
 
 //filter feed posts
 router.post('/boardfilter/', (req,res)=> {
-    if(loggedIn != null) {
-        console.log(req.params)
-        const {title, tweet} = req.body;
-        const post = {
-            id: profiles.length,
-            title,
-            tweet
-        };
-        if(req.body.title  != "" || req.body.tweet != ""){
-            const userPosts = posts.filter(function(el){
-                return el.title == req.body.title || el.tweet ==req.body.tweet
-            });
-            res.render('board', {loggedIn: loggedIn, posts: userPosts, css: css});
-        }
-        else res.render('board', {loggedIn: loggedIn, posts: posts, css: css});
-    }
+    if(loggedIn != null) {}
     else res.send("401 - nisi se ulogovao");
 });
 
 //filter user posts
 router.post('/filter/', (req,res)=> {
-    if(loggedIn != null) {
-        console.log(req.params)
-        const {title, tweet} = req.body;
-        const post = {
-            id: profiles.length,
-            title,
-            tweet
-        };
-        if(req.body.title  != "" || req.body.tweet != ""){
-            const userPosts = posts.filter(function(el){
-                return el.title == req.body.title || el.tweet == req.body.tweet
-            });
-            res.render('profile', {profile: loggedIn, posts: userPosts, css: css});
-        }
-        else res.render('profile', {profile: loggedIn, posts: posts, css: css});
-    }
+    if(loggedIn != null) {}
     else res.send("401 - nisi se ulogovao");
 });
 
