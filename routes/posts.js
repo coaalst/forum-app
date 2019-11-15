@@ -12,17 +12,11 @@ app.get('/', function(req, res, next) {
                 //if(err) throw err
                 if (err) {
                     req.flash('error', err)
-                    res.render('board.ejs', {
+                    res.render('board', {
                         title: 'Svi postovi',
                         data: ''
                     });
-                } else {
-                    // render to views/country/list.ejs template file
-                    res.render('country/list', {
-                        title: 'Svi postovi', 
-                        data: rows
-                    });
-                }
+                } else res.render('board', {data: rows});
             });
         });
     }
@@ -47,8 +41,8 @@ app.post('/add', function (req, res, next) {
         if (!errors) {
             const post = {
                 id: req.body.id,
-                title: req.sanitize('name').escape().trim(),
-                tweet: req.sanitize('tld').escape().trim(),
+                title: req.sanitize('title').escape().trim(),
+                tweet: req.sanitize('tweet').escape().trim(),
             }
 
             req.getConnection(function (error, conn) {
@@ -78,7 +72,7 @@ app.get('/edit/(:id)', function(req, res, next){
 			if(err) throw err;
 			// if post not found
 			if (rows.length <= 0) {
-				req.flash('error', 'Country not found with id = ' + req.params.id);
+				req.flash('error', 'Post not found with id = ' + req.params.id);
 				res.redirect('/profiles/me');
 			}
 			else { // if post found

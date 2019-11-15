@@ -1,6 +1,6 @@
 const express = require("express");
 const mysql = require('mysql');
-
+const path = require('path');
 /**
  * Stylesheet setup
  */ 
@@ -30,47 +30,16 @@ const profileRouter = require("./routes/profiles.js");
 app.use('/posts/', postRouter);
 app.use('/profiles/', profileRouter);
 
-
-/**
- * MySQL setup
- */ 
-const myConnection  = require('express-myconnection');
-const config = require('./db/config.js');
-const db = {
-	host:	  config.mysql.host,
-	user: 	  config.mysql.user,
-	password: config.mysql.password,
-	port: 	  config.mysql.port, 
-	database: config.mysql.db
-};
-app.use(myConnection(mysql, db, 'pool'));
-
-
 /**
  * konstante
  */ 
-const profiles = []; 
 var loggedIn = null;
-var userID = 0;
 
 /**
  * auth stranica
  */ 
 app.get('/', (req, res) => {
     res.render("auth");
-});
-
-app.post('/', (req, res) => {
-    const {name, password} = req.body;
-    const profile = {
-        id: userID++,
-        name: req.body.name,
-        password: req.body.password
-    };
-   
-    console.log(profile);
-    loggedIn = profile;
-    res.render("profile");
 });
 
 /**
