@@ -1,49 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-                                                        
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<meta charset="utf-8">
-	
-	<title>RAF-forum | Welcome</title>
-	<!--za stylesheet-->
-    <link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css"  media="screen,projection"/>
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
-<body>
-     <style><%- css.style %></style>
-    <header>
-       
-        <nav>
-            <ul>
-             <li><a class="first active">RAF Forum | Feed - Logged in as: <%= loggedIn.name %></a></li>
-             <li><a href="http://localhost:4000/profiles/<%= loggedIn.id %>">PROFILE</a></li>
-             <li><a href="http://localhost:4000/posts/home/">POST</a></li>
-             <li><a href="http://localhost:4000/logout/">LOG OFF</a></li>
-            </ul>
-       </nav>
-    </header>
+<!--
+including header content which is common for all pages
+-->
+<%//- include ../layouts/header.ejs %>
+<% include ../layouts/header %>
     <h2>Glavni feed</h2>
-
-    <!--filter setup-->
-  <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">Filter posts</button>
-        <div id="myDropdown" class="dropdown-content">
-          Filtritaj po sledecim parametrima: <br><br>
-          <div class="newpost">
-            <form action="../boardpostsfilter/" method="POST">
-              Naslov:
-              <input type="text" name="title"><br>
-              Sadrzaj:
-              <input type="text" name="tweet"><br><br>
-              <input type="submit" value="Apply">
-              <input type="reset" value="Reset">
-            </form>
-          </div>
-        </div>
-      </div> 
-  
 
     <!--regular posts-->
   <% posts.forEach(function(post) { %>

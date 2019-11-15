@@ -9,7 +9,6 @@
 <link type="text/css" rel="stylesheet" href="../assets/stylesheets/style.css" />
 </head>
 <body>
-		<style><%- css.style %></style>
 	<h1>RAF Forum 🚀 </h1>
 	<!-- main -->
 	<div class="main">
@@ -19,8 +18,8 @@
 				<h3>Login</h3>
 				
 				<div class="login-form">
-					<form name="login" target="_blank" action="../profiles/" method="post" onsubmit="windowClose()">
-						<input type="text" name="name" placeholder="E-mail" required="">
+					<form name="login" target="_blank" action="/profiles/login/" method="post">
+						<input type="text" name="name" placeholder="Name" required="">
 						<input type="password" name="password" placeholder="Password" required="">
 						<div class="tp">
 							<input class="dropbtn" type="submit" value="LOGIN NOW">
@@ -32,12 +31,5 @@
 		<div class="clear"></div>
 		<!--//signin-form-->	
 	</div>
-	<script>
-
-		function windowClose(){
-			console.log("city");
-			this.windows.close();
-		}
-	</script>
 </body>
 </html>

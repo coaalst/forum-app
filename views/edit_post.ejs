@@ -1,0 +1,22 @@
+<!--
+including header content which is common for all pages
+-->
+<%//- include ../layouts/header.ejs %>
+<% include ../layouts/header %>
+     <h2>Izmeni vas post</h2>
+     <div class="newpost">
+     <form action="/posts/add/" method="post" target="_blank">
+        <input type="hidden" name="id" value="<%= loggedIn.id %>">
+        Naslov:<br>
+        <input type="text" name="title" value="<%= post.title %>"><br>
+        Tekst:<br>
+        <input type="text" name="tweet" size="50" height="200" value="<%= post.tweet %>"><br><br>
+        <input type="submit" value="Send">
+        <input type="reset" value="Reset">
+        </form>
+    </div>
+        </body>
+        </html>
+        
+</body>
+</html>
