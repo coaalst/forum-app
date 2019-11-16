@@ -19,6 +19,6 @@ module.exports = {
     SQLuserMap: {
         insert: 'INSERT INTO user(id, name, password) VALUES(?,?,?)',
         queryById: 'select * from user where id=?',
-        queryByCred: 'select * from user where name=?, password=?',
+        queryByCred: 'select * from user where name=? and password=?',
     }
 };

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const config = require('../db/config');
-const main = require('../app');
+const main = require('../app.js');
 var loggedIn = main.loggedIn;
 
 // Prikaz svih postova

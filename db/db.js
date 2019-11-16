@@ -4,11 +4,13 @@ const ID = 'DbAgent: ';
 
 //local mysql db connection
 const connection = mysql.createConnection({
-    host:	  config.mysql.host,
-	user: 	  config.mysql.user,
-	password: config.mysql.password,
-	port: 	  config.mysql.port, 
-	database: config.mysql.db
+   host: '127.0.0.1',
+   user: 'dbuser',
+   password: 'dbpassword',
+   database: 'db',
+   port: '3306',
+   queueLimit : 0,
+   connectionLimit : 0
 });
 
 connection.connect(function(err) {

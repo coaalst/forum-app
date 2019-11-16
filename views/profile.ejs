@@ -1,8 +1,8 @@
 <!--
 including header content which is common for all pages
 -->
-<%//- include ../layouts/header.ejs %>
-<% include ../layouts/header %>
+<% include /layouts/header.ejs %>
+<% stylesheet('../assets/stylesheets') -%>
   <h2>Vasi postovi</h2>
 
   <!--filter setup-->
@@ -30,8 +30,8 @@ including header content which is common for all pages
           <h4><b><%= post.title %></b></h4>  
           <p><%= post.tweet %></p>
           <div class="login-form" style="float:left">
-					  <a href='/posts/edit/<%= country.id %>'>Edit</a> &nbsp;							
-				  	<form method="post" action="/posts/delete/<%= country.id %>" style="float:right">
+					  <a href='/posts/edit/<%= post.id %>'>Edit</a> &nbsp;							
+				  	<form method="post" action="/posts/delete/<%= post.id %>" style="float:right">
 						  <input type="submit" name="delete" value='Delete' />
 						  <input type="hidden" name="_method" value="DELETE" />
 					  </form>
