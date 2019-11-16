@@ -20,23 +20,22 @@ including header content which is common for all pages
 <div class="card">
   <div class="container">
     <h4><b><%= post.title %></b></h4>
-    <p><%= post.tweet %></p>
+    <p><%= post.tweet + post.id%></p>
+    <form id="form1<%= post.id %>" action="/posts/edit/<%= post.id %>" method="GET"></form>
+    <form id="form2<%= post.id %>" action="/posts/delete/<%= post.id %>" method="DELETE"></form>
   </div>
   <div class="login-form" style="float:left">
-    <button class="dropbtnCard" id="button1" name="edit" onclick="submitform('form1');">Edit</button>
-    <button class="dropbtnCard" id="button2" name="delete" onclick="submitform('form2');">Delete</button>
-    
-    <form id="form1" action="/posts/edit/<%= post.id %>" method="GET"></form>
-    <form id="form2" action="/posts/delete/<%= post.id %>" method="DELETE"></form>
+    <button class="dropbtnCard" id="button1" name="edit" onclick="submitform('form1<%= post.id %>');">Edit <%= post.id %></button>
+    <button class="dropbtnCard" id="button2" name="delete" onclick="submitform('form2<%= post.id %>');">Delete</button>
   </div>
 </div>
+
+<% }); %>
 <script>
 function submitform(formname) {
     document.forms[formname].submit();
 }
 </script>
-<% }); %>
-
 </body>
 
 </html>

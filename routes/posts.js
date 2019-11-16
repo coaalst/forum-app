@@ -15,9 +15,7 @@ app.get('/', function(req, res, next) {
     sql.query(mysql.format(config.SQLpostMap.queryAll), function (err, posts) {
 
         if (err) console.log(ID + "error: ", err);
-
         else {
-
             if (posts != null) {
 				toPost = [];
 				posts.forEach(element => {
@@ -74,14 +72,13 @@ app.get('/edit/(:id)', function(req, res, next){
 						tweet: resp[0].tweet,
 						userid: resp[0].userid,
 					}
-					console.log(ID + "Nasao sam: " + post1);
-					console.log(ID + "Nasao sam string: " + JSON.stringify(post1));
 					var jsJeSranje = {
 						id: post1.id,
 						title: post1.title,
 						tweet: post1.tweet,
 						userid: post1.userid,
 					}
+					console.log(ID + JSON.stringify(jsJeSranje));
 					res.render('edit_post.ejs', {post: jsJeSranje});
 				}
 		});
@@ -91,7 +88,7 @@ app.get('/edit/(:id)', function(req, res, next){
 });
 
 // Editovanje eposta - akcija
-app.get('/edit', function(req, res, next) {
+app.post('/edit', function(req, res, next) {
 	if (main.loggedIn != null) {
 		console.log(ID + 'pripremam izmene posta');
 		var post = {
@@ -104,8 +101,10 @@ app.get('/edit', function(req, res, next) {
 
 			if (err) console.log(ID + "error: ", err);
 	
-			else res.redirect('/profiles/me/');
-				
+			else {
+				console.log(ID + 'izmenio i vracam se na profil')
+				res.redirect('/profiles/me/');
+			}
 		});
 	}
 	else res.send("401 - nisi se ulogovao");
