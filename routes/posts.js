@@ -125,4 +125,26 @@ app.get('/delete/(:id)', function(req, res, next) {
 	else res.send("401 - nisi se ulogovao");
 });
 
+// Filtriranje posta
+app.get('/filter', function(req, res, next) {
+	if (main.loggedIn != null) {
+		console.log(ID + 'pripremam filter posta');
+		var search = {
+			from: req.body.from,
+			title: req.body.title,
+			tweet: req.body.tweet,
+		}
+
+		if(title == "" && tweet == ""){
+			if(from == "p") res.redirect('/profiles/me/');
+			if(from == "n") res.redirect('/news');
+		}
+
+		else{
+
+		}
+	}
+	else res.send("401 - nisi se ulogovao");
+});
+
 module.exports = app

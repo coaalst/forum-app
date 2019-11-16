@@ -7,11 +7,12 @@ including header content which is common for all pages
 
 
 <div class="dropdown">
-  <form class="form-inline" action="../postsfilter/" method="POST">
+  <form class="form-inline" action="../filter/" method="get">
     <label for="naslov">Title:</label>
     <input type="text" id="title" placeholder="Unesi naslov" name="title">
     <label for="text">Tweet:</label>
     <input type="text" id="tweet" placeholder="Unesi tekst" name="tweet">
+    <input type="hidden" name="from" value="p">
     <button class="dropbtn" type="submit">Filter posts</button>
   </form>
 </div>
@@ -20,12 +21,12 @@ including header content which is common for all pages
 <div class="card">
   <div class="container">
     <h4><b><%= post.title %></b></h4>
-    <p><%= post.tweet + post.id%></p>
+    <p><%= post.tweet%></p>
     <form id="form1<%= post.id %>" action="/posts/edit/<%= post.id %>" method="GET"></form>
     <form id="form2<%= post.id %>" action="/posts/delete/<%= post.id %>" method="DELETE"></form>
   </div>
   <div class="login-form" style="float:left">
-    <button class="dropbtnCard" id="button1" name="edit" onclick="submitform('form1<%= post.id %>');">Edit <%= post.id %></button>
+    <button class="dropbtnCard" id="button1" name="edit" onclick="submitform('form1<%= post.id %>');">Edit</button>
     <button class="dropbtnCard" id="button2" name="delete" onclick="submitform('form2<%= post.id %>');">Delete</button>
   </div>
 </div>

@@ -24,8 +24,8 @@ app.post('/login', function (req, res) {
         if (err) console.log(ID + "error: ", err);
 
         else {
-
-            if (col != null) {
+            console.log(ID + "u bazi ima: ", JSON.stringify(col));
+            if (col.length != 0) {
 
                 var parse = {
                     id: col[0].id,
@@ -39,6 +39,7 @@ app.post('/login', function (req, res) {
                 console.log(ID + 'korisnik parsed : ', loggedIn);
                 res.redirect('/profiles/me/');
             }
+            else res.render('auth.ejs', {Title: "Greska, nema tog korisnika u bazi..pokusajte ponovo!"})
         }
     });
 });
