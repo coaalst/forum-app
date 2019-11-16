@@ -88,6 +88,20 @@ header nav li a.active {
     cursor: pointer;
     margin-left: 10px;
   }
+
+  .dropbtnCard {
+    background-color: #293d3d;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    width: 80px;
+    height: 30px;
+
+  }
+  .dropbtnCard:hover, .dropbtnCard:focus {
+    background-color: #3e8e41;
+  }
   
   .dropbtn:hover, .dropbtn:focus {
     background-color: #3e8e41;
@@ -136,13 +150,15 @@ header nav li a.active {
   
   .show {display: block;}
 .card {
+    align-self: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    height: 100px;
-    width: 800px;
+    height: 150px;
+    width: 900px;
     margin-left: 10px;
     margin-top: 40px;
     text-align: left;
     font-family: arial;
+    word-wrap: break-word;
     background-color: azure;
     position: relative;
     padding: 10px;

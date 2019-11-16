@@ -29,14 +29,14 @@ including header content which is common for all pages
         <div class ="container">
           <h4><b><%= post.title %></b></h4>  
           <p><%= post.tweet %></p>
-          <div class="login-form" style="float:left">
-					  <a href='/posts/edit/<%= post.id %>'>Edit</a> &nbsp;							
+        </div>
+        <div class="login-form" style="float:left">
+					  <button class="dropbtnCard" href='/posts/edit/<%= post.id %>'>Edit</button> &nbsp;							
 				  	<form method="post" action="/posts/delete/<%= post.id %>" style="float:right">
-						  <input type="submit" name="delete" value='Delete' />
+						  <input class="dropbtnCard" type="submit" name="delete" value='Delete' />
 						  <input type="hidden" name="_method" value="DELETE" />
 					  </form>
 				  </div>
-        </div>
       </div>
 <% }); %>
 
