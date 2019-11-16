@@ -3,41 +3,40 @@ including header content which is common for all pages
 -->
 <% include /layouts/header.ejs %>
 <% stylesheet('../assets/stylesheets') -%>
-  <h2>Vasi postovi</h2>
+<h2>Vasi postovi</h2>
 
 
-    <div class="dropdown">
-    <form class="form-inline" action="../postsfilter/" method="POST">
-      <label for="naslov">Title:</label>
-      <input type="text" id="title" placeholder="Unesi naslov" name="title">
-      <label for="text">Tweet:</label>
-      <input type="text" id="tweet" placeholder="Unesi tekst" name="tweet">
-      <button class="dropbtn" type="submit">Filter posts</button>
-    </form> 
+<div class="dropdown">
+  <form class="form-inline" action="../postsfilter/" method="POST">
+    <label for="naslov">Title:</label>
+    <input type="text" id="title" placeholder="Unesi naslov" name="title">
+    <label for="text">Tweet:</label>
+    <input type="text" id="tweet" placeholder="Unesi tekst" name="tweet">
+    <button class="dropbtn" type="submit">Filter posts</button>
+  </form>
+</div>
+<!--regular posts-->
+<% posts.forEach(function(post) { %>
+<div class="card">
+  <div class="container">
+    <h4><b><%= post.title %></b></h4>
+    <p><%= post.tweet %></p>
   </div>
-  <!--regular posts-->
-  <% posts.forEach(function(post) { %>
-      <div class = "card">
-        <div class ="container">
-          <h4><b><%= post.title %></b></h4>  
-          <p><%= post.tweet %></p>
-        </div>
-        <div class="login-form" style="float:left">
-					  <button class="dropbtnCard" href='/posts/edit/<%= post.id %>'>Edit</button> &nbsp;							
-				  	<form method="post" action="/posts/delete/<%= post.id %>" style="float:right">
-						  <input class="dropbtnCard" type="submit" name="delete" value='Delete' />
-						  <input type="hidden" name="_method" value="DELETE" />
-					  </form>
-				  </div>
-      </div>
-<% }); %>
-
+  <div class="login-form" style="float:left">
+    <button class="dropbtnCard" id="button1" name="edit" onclick="submitform('form1');">Edit</button>
+    <button class="dropbtnCard" id="button2" name="delete" onclick="submitform('form2');">Delete</button>
+    
+    <form id="form1" action="/posts/edit/<%= post.id %>" method="GET"></form>
+    <form id="form2" action="/posts/delete/<%= post.id %>" method="DELETE"></form>
+  </div>
+</div>
 <script>
-  function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+function submitform(formname) {
+    document.forms[formname].submit();
 }
 </script>
+<% }); %>
 
-     
 </body>
+
 </html>

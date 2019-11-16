@@ -1,23 +1,27 @@
 <!--
 including header content which is common for all pages
 -->
-<%//- include ../layouts/header.ejs %>
-<% include ../layouts/header %>
-    <h2>Glavni feed</h2>
+<% include /layouts/header.ejs %>
+<h2>Glavni feed</h2>
 
-    <!--regular posts-->
-  <% posts.forEach(function(post) { %>
-    <div class = "card">
-      <div class ="container">
-        <h4><b><%= post.title %></b></h4>  
-        <p><%= post.tweet %></p>
-      </div>
-    </div>
+<div class="dropdown">
+  <form class="form-inline" action="../postsfilter/" method="POST">
+    <label for="naslov">Title:</label>
+    <input type="text" id="title" placeholder="Unesi naslov" name="title">
+    <label for="text">Tweet:</label>
+    <input type="text" id="tweet" placeholder="Unesi tekst" name="tweet">
+    <button class="dropbtn" type="submit">Filter posts</button>
+  </form>
+</div>
+<!--regular posts-->
+<% posts.forEach(function(post) { %>
+<div class="card">
+  <div class="container">
+    <h4><b><%= post.title %></b></h4>
+    <p><%= post.tweet %></p>
+  </div>
+</div>
 <% }); %>
-<script>
-  function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-    }
-</script>
 </body>
+
 </html>

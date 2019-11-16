@@ -9,7 +9,7 @@ module.exports = {
         connectionLimit : 0
     },
     SQLpostMap: {
-        insert: 'INSERT INTO posts(id, title, tweet, user_id) VALUES(?,?,?,?)',
+        insert: 'INSERT INTO posts(id, title, tweet, userid) VALUES(NULL,?,?,?)',
         update: 'update posts set title=?, tweet=? where id=?',
         delete: 'delete from posts where id=',
         queryById: 'select * from posts where id=',

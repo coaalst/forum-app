@@ -1,16 +1,16 @@
 <!--
 including header content which is common for all pages
 -->
-<%//- include ../layouts/header.ejs %>
-<% include ../layouts/header %>
-     <h2>Izmeni vas post</h2>
+<% include /layouts/header.ejs %>
+     <h2>Izmenite vas post</h2>
      <div class="newpost">
-     <form action="/posts/add/" method="post" target="_blank">
-        <input type="hidden" name="id" value="<%= loggedIn.id %>">
+     <form action="/posts/edit/" method="post" target="_blank">
+        <input type="hidden" name="id" value="<%= post.id %>">
         Naslov:<br>
         <input type="text" name="title" value="<%= post.title %>"><br>
         Tekst:<br>
         <input type="text" name="tweet" size="50" height="200" value="<%= post.tweet %>"><br><br>
+        <input type="hidden" name="userid" value="<%= post.userid %>">
         <input type="submit" value="Send">
         <input type="reset" value="Reset">
         </form>
@@ -20,3 +20,4 @@ including header content which is common for all pages
         
 </body>
 </html>
+
