@@ -130,19 +130,40 @@ app.get('/filter', function(req, res, next) {
 	if (main.loggedIn != null) {
 		console.log(ID + 'pripremam filter posta');
 		var search = {
-			from: req.body.from,
-			title: req.body.title,
-			tweet: req.body.tweet,
+			from: req.query.from,
+			title: req.query.title,
+			tweet: req.query.tweet,
 		}
-		console.log(ID + req.body.title);
-		if(req.body.title == 'undefined' && req.body.tweet == 'undefined'){
+		console.log(ID + req.query.title);
+		if(search.title === "" && search.tweet === ""){
 			console.log(ID + 'prosli');
-			if(req.body.from == "p") res.redirect('/profiles/me/');
-			if(req.body.from == "n") res.redirect('/news');
+			sql.query(mysql.format(config.SQLpostMap.queryAll), function (err, posts) {
+        
+				if(err) console.log(ID + "error: ", err);
+		
+				else{
+				  if(posts != null){
+					  toPost = [];
+					  console.log(ID + 'tazim po svemu');
+					  posts.forEach(element => {
+						var post = {
+							id: element.id,
+							title: element.title,
+							tweet: element.tweet,
+							userid: element.userid
+						}
+						console.log(ID + 'post parsed : ', post);
+						toPost.push(post);
+					  });
+					  if(search.from == "p")  res.render('profile.ejs', {posts}, main.css);
+					  if(search.from == "n")  res.render('board.ejs', {posts}, main.css);
+				  }
+				}
+			});   
 		}
 
 		else{
-			if(search.title != 'undefined' && search.tweet != 'undefined'){
+			if(search.title !== "" && search.tweet !== ""){
 				sql.query(mysql.format(config.SQLpostMap.queryByParams, [search.title, search.tweet]), function (err, posts) {
         
 					if(err) console.log(ID + "error: ", err);
@@ -150,6 +171,7 @@ app.get('/filter', function(req, res, next) {
 					else{
 					  if(posts != null){
 						  toPost = [];
+						  console.log(ID + 'tazim po oba: ' + search.title + search.tweet);
 						  posts.forEach(element => {
 							var post = {
 								id: element.id,
@@ -166,14 +188,15 @@ app.get('/filter', function(req, res, next) {
 					}
 				});   
 			}
-			if(search.title != 'undefined' && search.tweet == 'undefined'){
-				sql.query(mysql.format(config.SQLpostMap.queryByTitle + search.title), function (err, posts) {
+			if(search.title !== "" && search.tweet === ""){
+				sql.query(mysql.format(config.SQLpostMap.queryByTitle, [search.title]), function (err, posts) {
         
 					if(err) console.log(ID + "error: ", err);
 			
 					else{
 					  if(posts != null){
 						  toPost = [];
+						  console.log(ID + 'tazim po titlu : ' + search.title);
 						  posts.forEach(element => {
 							var post = {
 								id: element.id,
@@ -190,14 +213,15 @@ app.get('/filter', function(req, res, next) {
 					}
 				});   
 			}
-			if(search.title == 'undefined' && search.tweet != 'undefined'){
-				sql.query(mysql.format(config.SQLpostMap.queryByTweet + search.tweet), function (err, posts) {
+			if(search.title === "" && search.tweet !== ""){
+				sql.query(mysql.format(config.SQLpostMap.queryByTweet, [search.tweet]), function (err, posts) {
         
 					if(err) console.log(ID + "error: ", err);
 			
 					else{
 					  if(posts != null){
 						  toPost = [];
+						  console.log(ID + 'tazim po tweetu: ' + search.tweet);
 						  posts.forEach(element => {
 							var post = {
 								id: element.id,

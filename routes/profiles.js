@@ -39,7 +39,7 @@ app.post('/login', function (req, res) {
                 console.log(ID + 'korisnik parsed : ', loggedIn);
                 res.redirect('/profiles/me/');
             }
-            else res.render('auth.ejs', {Title: "Greska, nema tog korisnika u bazi..pokusajte ponovo!"})
+            else res.redirect('auth.ejs', {Title: "Greska, nema tog korisnika u bazi..pokusajte ponovo!"})
         }
     });
 });

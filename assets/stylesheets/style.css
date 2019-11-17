@@ -27,20 +27,7 @@ header {
     z-index: 1;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
-.header2{
-    position: fixed;
-    height: 80px;
-    
-}
 
-header img.dots {
-    position: center,absolute;
-    
-    height: auto; 
-    width: auto; 
-    max-width: 300px; 
-    max-height: 300px;
-}
 header nav ul {
     padding: 0px;
     position: absolute;
@@ -89,6 +76,22 @@ header nav li a.active {
     margin-left: 10px;
   }
 
+  .dropbtnWide {
+    background-color: #293d3d;
+    color: white;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    width: 200px;
+    height: 60px;
+    border-radius: 35px;
+  }
+
+  .dropdownInput {
+    border-radius: 15px;
+  }
+
   .dropbtnCard {
     background-color: #293d3d;
     color: white;
@@ -106,20 +109,6 @@ header nav li a.active {
   .dropbtn:hover, .dropbtn:focus {
     background-color: #3e8e41;
   }
-  
-  #myInput {
-    box-sizing: border-box;
-    background-image: url('searchicon.png');
-    background-position: 14px 12px;
-    background-repeat: no-repeat;
-    font-size: 16px;
-    padding: 14px 20px 12px 45px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    margin-left: 10px;
-  }
-  
-  #myInput:focus {outline: 3px solid #ddd;}
   
   .dropdown {
     position: relative;
@@ -179,32 +168,17 @@ h1 {
 }
 
 /*--//signin-form--*/
-.header-social {
-    text-align: center;
-    margin-bottom: 2em;
-}
-.tp {
-    margin: 3.7em 0 0;
-}
-h5 {
-    border-left: 1px dotted #7467b9;
-    padding: 0.5em;
-}
+
 h2 {
     padding: 0.5em;
     text-align: center;
-}
-
-.newpost{
-    margin-left: 20px;
-    padding: 20px;
 }
 
 .form-inline {
     display: flex;
     align-items: center;
     display: inline-block;
-    
+    border-radius: 15px;
   }
   
   /* Add some margins for each label */

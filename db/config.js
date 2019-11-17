@@ -16,8 +16,8 @@ module.exports = {
         queryByUserId: 'select * from posts where userid=',
         queryAll: 'select * from posts',
         queryByParams: 'select * from posts where title=? and tweet=?',
-        queryByTitle: 'select * from posts where title=',
-        queryByTweet: 'select * from posts where tweet=',
+        queryByTitle: 'select * from posts where title=?',
+        queryByTweet: 'select * from posts where tweet=?',
     },
     SQLuserMap: {
         insert: 'INSERT INTO user(id, name, password) VALUES(?,?,?)',

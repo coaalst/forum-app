@@ -2,17 +2,17 @@
 including header content which is common for all pages
 -->
 <% include /layouts/header.ejs %>
-     <h2>Izmenite vas post</h2>
-     <div class="newpost">
-     <form action="/posts/edit/" method="post" target="_blank">
+     <h1>✏️ Izmenite vas post ✏️</h1>
+     <div class="dropdown">
+     <form class="form-inline" action="/posts/edit/" method="post" target="_blank">
         <input type="hidden" name="id" value="<%= post.id %>">
         Naslov:<br>
-        <input type="text" name="title" value="<%= post.title %>"><br>
+        <input class="dropdownInput" type="text" name="title" value="<%= post.title %>"><br>
         Tekst:<br>
-        <input type="text" name="tweet" size="50" height="200" value="<%= post.tweet %>"><br><br>
+        <input class="dropdownInput" type="text" name="tweet" size="50" height="200" value="<%= post.tweet %>"><br><br>
         <input type="hidden" name="userid" value="<%= post.userid %>">
-        <input type="submit" value="Send">
-        <input type="reset" value="Reset">
+        <button class="dropbtn" type="submit">Send</button>
+        <button class="dropbtn" type="reset">Reset</button>
         </form>
     </div>
         </body>

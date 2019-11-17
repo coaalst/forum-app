@@ -2,14 +2,14 @@
 including header content which is common for all pages
 -->
 <% include /layouts/header.ejs %>
-<h2>Glavni feed</h2>
+<h1>⚡️ RAF Board ⚡️ </h1>
 
 <div class="dropdown">
   <form class="form-inline" action="/posts/filter/" method="get">
     <label for="naslov">Title:</label>
-    <input type="text" id="title" placeholder="Unesi naslov" name="title" value="">
+    <input class="dropdownInput" type="text" id="title" placeholder="Unesi naslov" name="title" value="">
     <label for="text">Tweet:</label>
-    <input type="text" id="tweet" placeholder="Unesi tekst" name="tweet" value="">
+    <input class="dropdownInput" type="text" id="tweet" placeholder="Unesi tekst" name="tweet" value="">
     <input type="hidden" name="from" value="p">
     <button class="dropbtn" type="submit">Filter posts</button>
   </form>

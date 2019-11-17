@@ -3,15 +3,15 @@ including header content which is common for all pages
 -->
 <% include /layouts/header.ejs %>
 <% stylesheet('../assets/stylesheets') -%>
-<h2>Vasi postovi</h2>
+<h1>🏡 Vasi postovi 🏡</h1>
 
 
 <div class="dropdown">
   <form class="form-inline" action="/posts/filter/" method="get">
     <label for="naslov">Title:</label>
-    <input type="text" id="title" placeholder="Unesi naslov" name="title">
+    <input class="dropdownInput" type="text" id="title" placeholder="Unesi naslov" name="title">
     <label for="text">Tweet:</label>
-    <input type="text" id="tweet" placeholder="Unesi tekst" name="tweet">
+    <input class="dropdownInput" type="text" id="tweet" placeholder="Unesi tekst" name="tweet">
     <input type="hidden" name="from" value="p">
     <button class="dropbtn" type="submit">Filter posts</button>
   </form>

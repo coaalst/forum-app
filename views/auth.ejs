@@ -11,14 +11,14 @@
 <body>
 		<!--signin-form-->
 			<div class="signin-form-profile">
-				<div class="login-form">
-					<h1>RAF Forum 🚀 </h1>
+				<div class="dropdown">
+					<h1>🚀 RAF Forum 🚀 </h1>
 					<h3><%=Title%></h3>
-					<form name="login" target="_blank" action="/profiles/login/" method="post">
-						<input type="text" name="name" placeholder="Name" required="">
-						<input type="password" name="password" placeholder="Password" required="">
+					<form class="form-inline" name="login" target="_blank" action="/profiles/login/" method="post">
+						<input class="dropdownInput" type="text" name="name" placeholder="Name" required="">
+						<input class="dropdownInput" type="password" name="password" placeholder="Password" required="">
 						<div class="tp">
-							<input class="dropbtn" type="submit" value="LOGIN NOW">
+							<button class="dropbtnWide" type="submit">Login</button>
 						</div>
 					</form>
 				</div>
