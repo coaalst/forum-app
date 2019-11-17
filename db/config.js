@@ -6,7 +6,7 @@ module.exports = {
         database: 'db',
         port: '3306',
         queueLimit : 0,
-        connectionLimit : 0
+        connectionLimit : 0,
     },
     SQLpostMap: {
         insert: 'INSERT INTO posts(id, title, tweet, userid) VALUES(NULL,?,?,?)',
@@ -14,7 +14,10 @@ module.exports = {
         delete: 'delete from posts where id=',
         queryById: 'select * from posts where id=',
         queryByUserId: 'select * from posts where userid=',
-        queryAll: 'select * from posts'
+        queryAll: 'select * from posts',
+        queryByParams: 'select * from posts where title=? and tweet=?',
+        queryByTitle: 'select * from posts where title=',
+        queryByTweet: 'select * from posts where tweet=',
     },
     SQLuserMap: {
         insert: 'INSERT INTO user(id, name, password) VALUES(?,?,?)',

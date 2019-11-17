@@ -164,25 +164,18 @@ h1 {
     font-weight: 700;
 }
 /*-- main --*/
-.main {
-    margin: 4em auto;
-    width: 50%;
-}
-
-/*--signin-form--*/
-.w3 {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-}
-
-.agile {
-    float: right;
-    width: 48%;
+.signin-form-profile {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin: auto;
+    align-self: center;
+    text-align: center;
 }
 
 .login-form {
     margin: 1em 0 2.5em;
+    display: inline-block;
 }
 
 /*--//signin-form--*/

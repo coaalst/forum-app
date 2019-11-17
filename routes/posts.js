@@ -134,14 +134,86 @@ app.get('/filter', function(req, res, next) {
 			title: req.body.title,
 			tweet: req.body.tweet,
 		}
-
-		if(title == "" && tweet == ""){
-			if(from == "p") res.redirect('/profiles/me/');
-			if(from == "n") res.redirect('/news');
+		console.log(ID + req.body.title);
+		if(req.body.title == 'undefined' && req.body.tweet == 'undefined'){
+			console.log(ID + 'prosli');
+			if(req.body.from == "p") res.redirect('/profiles/me/');
+			if(req.body.from == "n") res.redirect('/news');
 		}
 
 		else{
-
+			if(search.title != 'undefined' && search.tweet != 'undefined'){
+				sql.query(mysql.format(config.SQLpostMap.queryByParams, [search.title, search.tweet]), function (err, posts) {
+        
+					if(err) console.log(ID + "error: ", err);
+			
+					else{
+					  if(posts != null){
+						  toPost = [];
+						  posts.forEach(element => {
+							var post = {
+								id: element.id,
+								title: element.title,
+								tweet: element.tweet,
+								userid: element.userid
+							}
+							console.log(ID + 'post parsed : ', post);
+							toPost.push(post);
+						  });
+						  if(search.from == "p")  res.render('profile.ejs', {posts}, main.css);
+						  if(search.from == "n")  res.render('board.ejs', {posts}, main.css);
+					  }
+					}
+				});   
+			}
+			if(search.title != 'undefined' && search.tweet == 'undefined'){
+				sql.query(mysql.format(config.SQLpostMap.queryByTitle + search.title), function (err, posts) {
+        
+					if(err) console.log(ID + "error: ", err);
+			
+					else{
+					  if(posts != null){
+						  toPost = [];
+						  posts.forEach(element => {
+							var post = {
+								id: element.id,
+								title: element.title,
+								tweet: element.tweet,
+								userid: element.userid
+							}
+							console.log(ID + 'post parsed : ', post);
+							toPost.push(post);
+						  });
+						  if(search.from == "p")  res.render('profile.ejs', {posts}, main.css);
+						  if(search.from == "n")  res.render('board.ejs', {posts}, main.css);
+					  }
+					}
+				});   
+			}
+			if(search.title == 'undefined' && search.tweet != 'undefined'){
+				sql.query(mysql.format(config.SQLpostMap.queryByTweet + search.tweet), function (err, posts) {
+        
+					if(err) console.log(ID + "error: ", err);
+			
+					else{
+					  if(posts != null){
+						  toPost = [];
+						  posts.forEach(element => {
+							var post = {
+								id: element.id,
+								title: element.title,
+								tweet: element.tweet,
+								userid: element.userid
+							}
+							console.log(ID + 'post parsed : ', post);
+							toPost.push(post);
+						  });
+						  if(search.from == "p")  res.render('profile.ejs', {posts}, main.css);
+						  if(search.from == "n")  res.render('board.ejs', {posts}, main.css);
+					  }
+					}
+				});   
+			}
 		}
 	}
 	else res.send("401 - nisi se ulogovao");
