@@ -15,12 +15,12 @@ module.exports = {
         queryById: 'select * from posts where id=',
         queryByUserId: 'select * from posts where userid=',
         queryAll: 'select * from posts',
-        queryByParams: 'select * from posts where title=? and tweet=?',
-        queryByTitle: 'select * from posts where title=?',
-        queryByTweet: 'select * from posts where tweet=?',
+        queryByParams: 'select * from posts where title like ? and tweet like ?',
+        queryByTitle: 'select * from posts where title like ?',
+        queryByTweet: 'select * from posts where tweet like ?',
     },
     SQLuserMap: {
-        insert: 'INSERT INTO user(id, name, password) VALUES(?,?,?)',
+        insert: 'INSERT INTO user(name, password) VALUES(?,?)',
         queryById: 'select * from user where id=?',
         queryByCred: 'select * from user where name=? and password=?',
     }

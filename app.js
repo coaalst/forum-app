@@ -42,7 +42,7 @@ var loggedIn = null;
  * auth stranica
  */ 
 app.get('/', (req, res) => {
-    res.render("auth", {Title: "Login"});
+    res.render("auth", {logTitle: "Login", regTitle: "Register"});
 });
 
 /**
@@ -50,5 +50,5 @@ app.get('/', (req, res) => {
  */ 
 app.get('/logout', (req, res) => {
     loggedIn = null;
-    res.render("auth", {Title: "Login"});
+    res.render("auth", {logTitle: "Login", regTitle: "Register"});
 });

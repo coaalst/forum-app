@@ -39,7 +39,44 @@ app.post('/login', function (req, res) {
                 console.log(ID + 'korisnik parsed : ', loggedIn);
                 res.redirect('/profiles/me/');
             }
-            else res.redirect('auth.ejs', {Title: "Greska, nema tog korisnika u bazi..pokusajte ponovo!"})
+            else res.render('auth.ejs', {logTitle: "Greska, nema tog korisnika u bazi..pokusajte ponovo!", regTitle: "Register"})
+        }
+    });
+});
+
+// Registracija, dodavanje novog korisnika
+app.post('/register', function (req, res) {
+    var user = {
+        name: req.body.name,
+        password: req.body.password
+    }
+    console.log(ID + 'pripremam pretragu korisnika');
+    console.log(ID + 'trazim korisnika: ' + JSON.stringify(user));
+    sql.query(mysql.format(config.SQLuserMap.queryByCred, [user.name, user.password]), function (err, col) {
+
+        if (err) console.log(ID + "error: ", err);
+
+        else {
+            console.log(ID + "u bazi ima: ", JSON.stringify(col));
+            if (col.length == 0) {
+                sql.query(mysql.format(config.SQLuserMap.insert, [user.name, user.password]), function (err, col) {
+                    console.log(ID + 'korisnik : ', JSON.stringify(col));
+                });
+                sql.query(mysql.format(config.SQLuserMap.queryByCred, [user.name, user.password]), function (err, col) {
+                    var parse = {
+                        id: col[0].id,
+                        name: col[0].name,
+                        password: col[0].password,
+                    }
+                    console.log(ID + 'korisnik registrovan: ', parse);
+                    loggedIn = parse;
+                    main.loggedIn = loggedIn;
+                    console.log(ID + 'korisnik id parsed : ', loggedIn.id);
+                    console.log(ID + 'korisnik parsed : ', loggedIn);
+                    res.redirect('/profiles/me/');
+                });
+            }
+            else res.render('auth.ejs', {logTitle: "Login", regTitle: "Greska, vec postoji takav korisnik"});
         }
     });
 });

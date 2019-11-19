@@ -66,6 +66,19 @@ header nav li.last {
 header nav li a.active {
     opacity: 1.0;
 }
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .dropbtn {
     background-color: #293d3d;
     color: white;

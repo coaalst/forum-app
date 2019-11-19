@@ -164,7 +164,7 @@ app.get('/filter', function(req, res, next) {
 
 		else{
 			if(search.title !== "" && search.tweet !== ""){
-				sql.query(mysql.format(config.SQLpostMap.queryByParams, [search.title, search.tweet]), function (err, posts) {
+				sql.query(mysql.format(config.SQLpostMap.queryByParams, ['%' + search.title + '%', '%' + search.tweet + '%']), function (err, posts) {
         
 					if(err) console.log(ID + "error: ", err);
 			
@@ -189,7 +189,7 @@ app.get('/filter', function(req, res, next) {
 				});   
 			}
 			if(search.title !== "" && search.tweet === ""){
-				sql.query(mysql.format(config.SQLpostMap.queryByTitle, [search.title]), function (err, posts) {
+				sql.query(mysql.format(config.SQLpostMap.queryByTitle, ['%' + search.title + '%']), function (err, posts) {
         
 					if(err) console.log(ID + "error: ", err);
 			
@@ -214,7 +214,7 @@ app.get('/filter', function(req, res, next) {
 				});   
 			}
 			if(search.title === "" && search.tweet !== ""){
-				sql.query(mysql.format(config.SQLpostMap.queryByTweet, [search.tweet]), function (err, posts) {
+				sql.query(mysql.format(config.SQLpostMap.queryByTweet, ['%' + search.tweet + '%']), function (err, posts) {
         
 					if(err) console.log(ID + "error: ", err);
 			
