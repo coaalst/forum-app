@@ -39,7 +39,7 @@ app.post('/login', function (req, res) {
                 console.log(ID + 'korisnik parsed : ', loggedIn);
                 res.redirect('/profiles/me/');
             }
-            else res.render('auth.ejs', {logTitle: "Greska, nema tog korisnika u bazi..pokusajte ponovo!", regTitle: "Register"})
+            else res.render('auth.ejs', { logTitle: "Greska, nema tog korisnika u bazi..pokusajte ponovo!", regTitle: "Register" })
         }
     });
 });
@@ -76,34 +76,37 @@ app.post('/register', function (req, res) {
                     res.redirect('/profiles/me/');
                 });
             }
-            else res.render('auth.ejs', {logTitle: "Login", regTitle: "Greska, vec postoji takav korisnik"});
+            else res.render('auth.ejs', { logTitle: "Login", regTitle: "Greska, vec postoji takav korisnik" });
         }
     });
 });
 
 // Vracanje korisnickog profila
 app.get('/me/', function (req, res) {
-    sql.query(mysql.format(config.SQLpostMap.queryByUserId + loggedIn.id), function (err, posts) {
-        
-        if(err) console.log(ID + "error: ", err);
+    if (loggedIn != null) {
+        sql.query(mysql.format(config.SQLpostMap.queryByUserId + loggedIn.id), function (err, posts) {
 
-        else{
-          if(posts != null){
-              toPost = [];
-              posts.forEach(element => {
-                var post = {
-                    id: element.id,
-                    title: element.title,
-                    tweet: element.tweet,
-                    userid: element.userid
+            if (err) console.log(ID + "error: ", err);
+
+            else {
+                if (posts != null) {
+                    toPost = [];
+                    posts.forEach(element => {
+                        var post = {
+                            id: element.id,
+                            title: element.title,
+                            tweet: element.tweet,
+                            userid: element.userid
+                        }
+                        console.log(ID + 'post parsed : ', post);
+                        toPost.push(post);
+                    });
+                    res.render('profile.ejs', { posts }, main.css);
                 }
-                console.log(ID + 'post parsed : ', post);
-                toPost.push(post);
-              });
-              res.render('profile.ejs', {posts}, main.css);
-          }
-        }
-    });   
+            }
+        });
+    }
+    else res.send("401 - nisi se ulogovao");
 });
 
 module.exports = app;

@@ -1,42 +1,44 @@
 const express = require('express');
 const app = express();
 const ID = 'PostRouter: ';
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 const config = require('../db/config.js');
 const sql = require('../db/db.js');
 const main = require('../app.js');
 const mysql = require('mysql');
 
-// Prikaz svih postova
-app.get('/', function(req, res, next) {
-	console.log(ID + 'pripremam pretragu svih postova');
-    sql.query(mysql.format(config.SQLpostMap.queryAll), function (err, posts) {
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-        if (err) console.log(ID + "error: ", err);
-        else {
-            if (posts != null) {
-				toPost = [];
-				posts.forEach(element => {
-				  var post = {
-					  id: element.id,
-					  title: element.title,
-					  tweet: element.tweet,
-					  userid: element.userid
-				  }
-				  console.log(ID + 'post parsed : ', post);
-				  toPost.push(post);
-				});
-				res.render('board.ejs', {posts}, main.css);
-            }
-        }
-    });
+// Prikaz svih postova
+app.get('/', function (req, res, next) {
+	if (main.loggedIn != null) {
+		console.log(ID + 'pripremam pretragu svih postova');
+		sql.query(mysql.format(config.SQLpostMap.queryAll), function (err, posts) {
+
+			if (err) console.log(ID + "error: ", err);
+			else {
+				if (posts != null) {
+					toPost = [];
+					posts.forEach(element => {
+						var post = {
+							id: element.id,
+							title: element.title,
+							tweet: element.tweet,
+							userid: element.userid
+						}
+						console.log(ID + 'post parsed : ', post);
+						toPost.push(post);
+					});
+					res.render('board.ejs', { posts }, main.css);
+				}
+			}
+		});
+	}
+	else res.send("401 - nisi se ulogovao");
 });
 
 // Prikaz stranice za dodavanje postova
 app.get('/add', function(req, res, next){	
-	// render to views/new_post.ejs
 	console.log(ID + 'dodavanje posta');
     if(main.loggedIn != null) res.render("new_post", {loggedIn: main.loggedIn});
     else res.send("401 - nisi se ulogovao");
@@ -135,6 +137,8 @@ app.get('/filter', function(req, res, next) {
 			tweet: req.query.tweet,
 		}
 		console.log(ID + req.query.title);
+
+		// Ako je prazan filter
 		if(search.title === "" && search.tweet === ""){
 			console.log(ID + 'prosli');
 			sql.query(mysql.format(config.SQLpostMap.queryAll), function (err, posts) {
@@ -163,6 +167,7 @@ app.get('/filter', function(req, res, next) {
 		}
 
 		else{
+			// Ako trazimo po oba
 			if(search.title !== "" && search.tweet !== ""){
 				sql.query(mysql.format(config.SQLpostMap.queryByParams, ['%' + search.title + '%', '%' + search.tweet + '%']), function (err, posts) {
         
@@ -188,6 +193,8 @@ app.get('/filter', function(req, res, next) {
 					}
 				});   
 			}
+
+			// Ako je samo title unet
 			if(search.title !== "" && search.tweet === ""){
 				sql.query(mysql.format(config.SQLpostMap.queryByTitle, ['%' + search.title + '%']), function (err, posts) {
         
@@ -213,6 +220,8 @@ app.get('/filter', function(req, res, next) {
 					}
 				});   
 			}
+
+			// Ako je samo tweet unet
 			if(search.title === "" && search.tweet !== ""){
 				sql.query(mysql.format(config.SQLpostMap.queryByTweet, ['%' + search.tweet + '%']), function (err, posts) {
         
