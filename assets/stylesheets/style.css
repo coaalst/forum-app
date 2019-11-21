@@ -87,6 +87,7 @@ header nav li a.active {
     border: none;
     cursor: pointer;
     margin-left: 10px;
+    border-radius: 10px;
   }
 
   .dropbtnWide {
@@ -113,7 +114,7 @@ header nav li a.active {
     border: none;
     width: 80px;
     height: 30px;
-
+    border-radius: 5px;
   }
   .dropbtnCard:hover, .dropbtnCard:focus {
     background-color: #3e8e41;
@@ -149,6 +150,7 @@ header nav li a.active {
     background-color: azure;
     position: relative;
     padding: 10px;
+    border-radius: 10px;
 } 
 
 /* On mouse-over, add a deeper shadow */
